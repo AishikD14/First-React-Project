@@ -1,23 +1,35 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
+import history from './history';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Navbar from './components/navbar.component';
-import ExercisesList from './components/exercises-list.component';
-import EditExercise from './components/edit-exercise.component';
-import CreateExercise from './components/create-exercise.component';
-import CreateUser from './components/create-user.component';
+import Login from './components/login.component';
+import Register from './components/register.component';
+import ExercisesList from './components/admin/exercises-list.component';
+import EditExercise from './components/admin/edit-exercise.component';
+import CreateExercise from './components/admin/create-exercise.component';
+import CreateUser from './components/admin/create-user.component';
+import ExercisesListUser from './components/user/exercises-list-user.component';
+import CreateExerciseUser from './components/user/create-exercise-user.component';
+import CreatePlansUser from './components/user/create-plans-user.component';
+import EditExerciseUser from './components/user/edit-exercise-user.component';
 
 function App() {
   return (
-    <Router>
+    <Router history={history}>
       <div className="container">
-        <Navbar />
-        <br />
-        <Route path="/" exact component={ExercisesList} />
+        <Route path="/" exact component={Login} />
+        <Route path="/register" exact component={Register} />
+
+        <Route path="/exercise" component={ExercisesList} />
         <Route path="/edit/:id" component={EditExercise} />
-        <Route path="/create" component={CreateExercise} />
-        <Route path="/user" component={CreateUser} />
+        <Route path="/create_exer" component={CreateExercise} />
+        <Route path="/create_user" component={CreateUser} />
+
+        <Route path="/exer_list_user" component={ExercisesListUser} />
+        <Route path="/create_exer_user" component={CreateExerciseUser} />
+        <Route path="/create_plans_user" component={CreatePlansUser} />
+        <Route path="/edit_user" component={EditExerciseUser} />
       </div>
     </Router>
   );

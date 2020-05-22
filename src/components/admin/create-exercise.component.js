@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
+import Navbar from './navbar.component';
+import history from '../../history';
 
 export default class CreateExercise extends Component{
     constructor(props){
@@ -31,6 +33,7 @@ export default class CreateExercise extends Component{
                     })
                 }
             })
+            .catch(err => console.log("Error: " + err));
     }
     onChangeUserName(e){
         this.setState({
@@ -62,15 +65,18 @@ export default class CreateExercise extends Component{
         }
         console.log(exercise);
         axios.post("http://localhost:5000/exercises/add",exercise)
-            .then(res => console.log(res.data));
+            .then(res => console.log(res.data))
+            .catch(err => console.log("Error: " + err));
 
-        window.location='/';
+        history.push('/exercise');
     }
 
     render(){
         return(
             <div>
-                <p>Create New  Exercise component</p>
+                <Navbar />
+                <br/>
+                <h2>Create New  Exercise</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>UserName</label>
