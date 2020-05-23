@@ -12,6 +12,7 @@ export default class CreatePlansUser extends Component{
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeDuration = this.onChangeDuration.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
+        this.onChangeNote = this.onChangeNote.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
@@ -19,7 +20,7 @@ export default class CreatePlansUser extends Component{
             description: "",
             duration: 0,
             date : new Date(),
-            users: [],
+            note: "",
             user: "Aishik"
         }
     }
@@ -43,13 +44,19 @@ export default class CreatePlansUser extends Component{
             date: date
         })
     }
+    onChangeNote(e){
+        this.setState({
+            note: e.target.value
+        })
+    }
     onSubmit(e){
         e.preventDefault();
         const exercise = {
             username: this.state.username,
             description: this.state.description,
             duration: this.state.duration,
-            date: this.state.date
+            date: this.state.date,
+            note: this.state.note
         }
         console.log(exercise);
         axios.post("http://localhost:5000/exercises/add",exercise)
@@ -83,6 +90,10 @@ export default class CreatePlansUser extends Component{
                         <DatePicker
                         selected={this.state.date}
                         onChange={this.onChangeDate}/>
+                    </div>
+                    <div className="form-group">
+                        <label>A short note for yourself</label>
+                        <input type="text" required className="form-control" value={this.state.note} onChange={this.onChangeNote}/>
                     </div>
                     <div className="form-group">
                         <input type="submit" value="Create Plan" className="btn btn-primary"/>

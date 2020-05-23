@@ -23,7 +23,7 @@ router.route('/login').post((req,res) => {
     
     User.find({username: username, password: password})
         .then(users => {
-            if(!users){
+            if(!users.length){
                 res.json('Failure');
             }
             else{
@@ -40,7 +40,7 @@ router.route('/register').post((req,res) => {
 
     User.find({username: username})
         .then(users => {
-            if(!users){
+            if(users.length){
                 res.json('Failure');
             }
             else{

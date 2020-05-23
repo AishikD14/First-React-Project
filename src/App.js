@@ -29,7 +29,7 @@ function App() {
         <Route path="/exer_list_user" component={ExercisesListUser} />
         <Route path="/create_exer_user" component={CreateExerciseUser} />
         <Route path="/create_plans_user" component={CreatePlansUser} />
-        <Route path="/edit_user" component={EditExerciseUser} />
+        <Route path="/edit_user/:id" component={EditExerciseUser} />
       </div>
     </Router>
   );
