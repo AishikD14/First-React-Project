@@ -59,13 +59,15 @@ export default class EditExerciseUser extends Component{
             duration: this.state.duration,
             date: this.state.date
         }
-        console.log(exercise);
+        // console.log(exercise);
         axios.post("http://localhost:5000/exercises/update/"+this.props.match.params.id,exercise)
-            .then(res => console.log(res.data))
+            .then(res => {
+                // console.log(res.data);
+                history.push('/exer_list_user');
+            })
             .catch(function(error){
                 alert(error);
             });
-        history.push('/exer_list_user');
     }
 
     render(){
