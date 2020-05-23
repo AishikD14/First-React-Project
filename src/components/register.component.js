@@ -39,7 +39,7 @@ export default class Register extends Component{
             password: this.state.password,
             cnf_password: this.state.cnf_password
         }
-        console.log(user);
+        // console.log(user);
 
         if(user.cnf_password !== user.password){
             alert("Password and Confirm password fields should be same");

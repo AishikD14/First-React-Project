@@ -32,7 +32,7 @@ export default class Login extends Component{
             username: this.state.username,
             password: this.state.password
         }
-        console.log(user);
+        // console.log(user);
 
         axios.post("http://localhost:5000/users/login",user)
             .then(res => {
