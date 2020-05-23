@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import history from '../../history';
+import '../navbar.scss';
 
 export default class NavbarUser extends Component{
     constructor(props){
@@ -27,7 +28,7 @@ export default class NavbarUser extends Component{
                             <Link to="/create_plans_user" className="nav-link">Create a Plan</Link>
                         </li>
                     </ul>
-                    <button onClick={this.onSignOut}>Sign out</button>
+                    <button className="signout" onClick={this.onSignOut}>Sign out</button>
                 </div>
             </nav>
         );
