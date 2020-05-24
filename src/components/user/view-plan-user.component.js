@@ -5,48 +5,49 @@ import NavbarUser from './navbar-user.component';
 import { connect } from 'react-redux';
 import { stateToProps, DispatchToProps } from '../../reducerfunctions';
 
-const Exercise = props => (
+const Plan = props => (
     <tr>
-        <td>{props.exercise.description}</td>
-        <td>{props.exercise.duration}</td>
-        <td>{props.exercise.date.substring(0,10)}</td>
-        <td><Link to={"/edit_user/"+props.exercise._id}>Edit</Link> | <button style={{backgroundColor: "red"}} onClick={() => {props.deleteExercise(props.key)}}>Delete</button></td>
+        <td>{props.plan.description}</td>
+        <td>{props.plan.duration}</td>
+        <td>{props.plan.date.substring(0,10)}</td>
+        <td>{props.plan.note}</td>
+        <td><Link to={"/edit_user/"+props.plan._id}>Edit</Link> | <button style={{backgroundColor: "red"}} onClick={() => {props.deletePlan(props.key)}}>Delete</button></td>
     </tr>
 )
 
-class ExercisesListUser extends Component{
+class ViewPlansUser extends Component{
     constructor(props){
         super(props);
 
-        this.deleteExercise = this.deleteExercise.bind(this);
+        this.deletePlan = this.deletePlan.bind(this);
 
         this.state = {
-            exercise: [],
+            plan: [],
             user: this.props.userId
         }
     }
     componentDidMount(){
-        axios.get("http://localhost:5000/exercises/"+this.state.user)
+        axios.get("http://localhost:5000/plan/"+this.state.user)
             .then(response => {
                 this.setState({
-                    exercise: response.data
+                    plan: response.data
                 });
                 // console.log(this.state.exercise);
             })
             .catch(err => console.log("Error: " + err));
         
     }
-    deleteExercise(id){
-        axios.delete("http://localhost:5000/exercises/"+id)
+    deletePlan(id){
+        axios.delete("http://localhost:5000/plan/"+id)
             .then(res => alert(res.data))
             .catch(err => console.log("Error: " + err));
         this.setState({
-            exercise: this.state.exercise.filter(el => el._id!==id)
+            plan: this.state.plan.filter(el => el._id!==id)
         })
     }
-    exerciselist(){
-        return this.state.exercise.map(currentExercise => {
-            return <Exercise exercise={currentExercise} deleteExercise={this.deleteExercise} key={currentExercise._id}/>
+    planlist(){
+        return this.state.plan.map(currentPlan => {
+            return <Plan plan={currentPlan} deletePlan={this.deletePlan} key={currentPlan._id}/>
         })
     }
 
@@ -55,18 +56,19 @@ class ExercisesListUser extends Component{
             <div>
                 <NavbarUser />
                 <br/>
-                <h1>Logged Exercises</h1>
+                <h1>Logged Plans</h1>
                 <table className="table">
                     <thead className="thread-light">
                         <tr>
                             <th>Description</th>
                             <th>Duration</th>
                             <th>Date</th>
+                            <th>Note</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.exerciselist()}
+                        {this.planlist()}
                     </tbody>
                 </table>
             </div>
@@ -74,4 +76,4 @@ class ExercisesListUser extends Component{
     }
 }
 
-export default connect(stateToProps, DispatchToProps)(ExercisesListUser);
+export default connect(stateToProps, DispatchToProps)(ViewPlansUser);

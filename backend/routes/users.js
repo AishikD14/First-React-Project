@@ -27,7 +27,7 @@ router.route('/login').post((req,res) => {
                 res.json('Failure');
             }
             else{
-                res.json("Success");
+                res.json(users);
             }
         })
         .catch(err => res.status(400).json('Error:' + err));
