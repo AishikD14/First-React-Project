@@ -27,6 +27,9 @@ export default class NavbarUser extends Component{
                         <li className="navbar-item">
                             <Link to="/create_plans_user" className="nav-link">Create a Plan</Link>
                         </li>
+                        <li className="navbar-item">
+                            <Link to="/view_plans_users" className="nav-link">Views Plans</Link>
+                        </li>
                     </ul>
                     <button className="signout" onClick={this.onSignOut}>Sign out</button>
                 </div>

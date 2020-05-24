@@ -4,8 +4,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 import NavbarUser from './navbar-user.component';
 import history from '../../history';
+import { connect } from 'react-redux';
+import { stateToProps, DispatchToProps } from '../../reducerfunctions';
 
-export default class CreatePlansUser extends Component{
+class CreatePlansUser extends Component{
     constructor(props){
         super(props);
 
@@ -21,7 +23,7 @@ export default class CreatePlansUser extends Component{
             duration: 0,
             date : new Date(),
             note: "",
-            user: "Aishik"
+            user: this.props.userId
         }
     }
     componentDidMount(){
@@ -51,15 +53,15 @@ export default class CreatePlansUser extends Component{
     }
     onSubmit(e){
         e.preventDefault();
-        const exercise = {
+        const plan = {
             username: this.state.username,
             description: this.state.description,
             duration: this.state.duration,
             date: this.state.date,
             note: this.state.note
         }
-        console.log(exercise);
-        axios.post("http://localhost:5000/exercises/add",exercise)
+        console.log(plan);
+        axios.post("http://localhost:5000/plan/add",plan)
             .then(res => console.log(res.data))
             .catch(err => console.log("Error: " + err));
 
@@ -103,3 +105,6 @@ export default class CreatePlansUser extends Component{
         );
     }
 }
+
+
+export default connect(stateToProps, DispatchToProps)(CreatePlansUser);

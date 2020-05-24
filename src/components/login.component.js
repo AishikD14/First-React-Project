@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import history from '../history';
+import { connect } from 'react-redux';
+import { stateToProps, DispatchToProps } from '../reducerfunctions';
 
-export default class Login extends Component{
+class Login extends Component{
     constructor(props){
         super(props);
 
@@ -36,11 +38,13 @@ export default class Login extends Component{
 
         axios.post("http://localhost:5000/users/login",user)
             .then(res => {
-                if(res.data ==="Success"){
+                console.log(res.data[0].username);
+                if(res.data.length === 1){
                     if(user.username === "admin"){
                         history.push('/exercise');
                     }
                     else{
+                        this.props.setUser(user.username);
                         history.push('/exer_list_user');
                     }
                 }
@@ -57,6 +61,7 @@ export default class Login extends Component{
             password: ""
         })
     }
+
     render(){
         return(
             <div className="text-center">
@@ -84,3 +89,5 @@ export default class Login extends Component{
         );
     }
 }
+
+export default connect(stateToProps, DispatchToProps)(Login);
