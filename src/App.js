@@ -19,7 +19,7 @@ function App() {
     <Router history={history}>
       <div className="container">
         <Route path="/" exact component={Login} />
-        <Route path="/register" exact component={Register} />
+        <Route path="/register" component={Register} />
 
         <Route path="/exercise" component={ExercisesList} />
         <Route path="/edit/:id" component={EditExercise} />
