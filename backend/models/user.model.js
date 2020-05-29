@@ -16,6 +16,17 @@ const userSchema = new Schema({
     timestamps: true
 });
 
+userSchema.methods = {
+    checkPassword: function (inputPassword) {
+        if(inputPassword == this.password){
+            return true;
+        } 
+        else{
+            return false;
+        }
+    }
+}
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

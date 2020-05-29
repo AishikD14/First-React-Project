@@ -4,8 +4,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 import NavbarUser from './navbar-user.component';
 import history from '../../history';
+import { connect } from 'react-redux';
+import { stateToProps, DispatchToProps } from '../../reducerfunctions';
 
-export default class CreateExerciseUser extends Component{
+class CreateExerciseUser extends Component{
     constructor(props){
         super(props);
 
@@ -20,7 +22,7 @@ export default class CreateExerciseUser extends Component{
             duration: 0,
             date : new Date(),
             users: [],
-            user: "Aishik"
+            user: this.props.userId
         }
     }
     componentDidMount(){
@@ -51,7 +53,7 @@ export default class CreateExerciseUser extends Component{
             duration: this.state.duration,
             date: this.state.date
         }
-        console.log(exercise);
+        console.log(this.state.date);
         axios.post("http://localhost:5000/exercises/add",exercise)
             .then(res => console.log(res.data))
             .catch(err => console.log("Error: " + err));
@@ -92,3 +94,4 @@ export default class CreateExerciseUser extends Component{
         );
     }
 }
+export default connect(stateToProps, DispatchToProps)(CreateExerciseUser);
