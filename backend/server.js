@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const session = require('express-session')
 const passport = require('./passport');
 
+
 require('dotenv').config();
 
 const app = express();
@@ -23,10 +24,13 @@ connection.once('open', () => {
     console.log('MongoDB connection established successfully');
 })
 
+const MongoStore = require('connect-mongo')(session)
+
 //sessions
 app.use(
     session({
         secret: 'fraggle-rock', //pick a random string to make the hash that is generated secure
+        store: new MongoStore({ mongooseConnection: connection }),
         resave: false, //required
         saveUninitialized: false //required
     })
